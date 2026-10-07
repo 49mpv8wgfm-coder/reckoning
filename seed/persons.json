@@ -1,0 +1,31 @@
+{
+  "persons": [
+    {
+      "id": "M000303",
+      "name": "John McCain",
+      "party": "R",
+      "office": "U.S. Senator, Arizona",
+      "tenure": "1987-2018",
+      "photo": "https://unitedstates.github.io/images/congress/225x275/M000303.jpg",
+      "source": "https://bioguide.congress.gov/search/bio/M000303"
+    },
+    {
+      "id": "O000167",
+      "name": "Barack Obama",
+      "party": "D",
+      "office": "44th President of the United States",
+      "tenure": "1997-2017",
+      "photo": "https://unitedstates.github.io/images/congress/225x275/O000167.jpg",
+      "source": "https://bioguide.congress.gov/search/bio/O000167"
+    },
+    {
+      "id": "S000033",
+      "name": "Bernie Sanders",
+      "party": "I",
+      "office": "U.S. Senator, Vermont",
+      "tenure": "1991-present",
+      "photo": "https://unitedstates.github.io/images/congress/225x275/S000033.jpg",
+      "source": "https://bioguide.congress.gov/search/bio/S000033"
+    }
+  ]
+}

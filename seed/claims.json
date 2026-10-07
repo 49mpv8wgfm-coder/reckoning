@@ -1,0 +1,160 @@
+{
+  "claims": [
+    {
+      "person_id": "M000303",
+      "category": "office",
+      "status": "VERIFIED",
+      "statement": "John McCain served Arizona in the U.S. Senate from January 1987 until his death on August 25, 2018.",
+      "evidence": {
+        "source": "Biographical Directory of the U.S. Congress",
+        "url": "https://bioguide.congress.gov/search/bio/M000303",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "d1a7005655d232ebc48565640e8e0e2a42a7769e560b81d062a315e7ba2c694d"
+      }
+    },
+    {
+      "person_id": "M000303",
+      "category": "office",
+      "status": "VERIFIED",
+      "statement": "McCain previously served as U.S. Representative from Arizona's 1st district, 1983–1987.",
+      "evidence": {
+        "source": "Biographical Directory of the U.S. Congress",
+        "url": "https://bioguide.congress.gov/search/bio/M000303",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "d1a7005655d232ebc48565640e8e0e2a42a7769e560b81d062a315e7ba2c694d"
+      }
+    },
+    {
+      "person_id": "M000303",
+      "category": "campaign",
+      "status": "VERIFIED",
+      "statement": "McCain was the Republican nominee for President of the United States in 2008 (FEC candidate P80002801).",
+      "evidence": {
+        "source": "Federal Election Commission — candidate record",
+        "url": "https://www.fec.gov/data/candidate/P80002801/",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "44889a7170288e46bbfd3bf4ff1b06bed2b766e2a5172422e2091db10e4edc38"
+      }
+    },
+    {
+      "person_id": "M000303",
+      "category": "service",
+      "status": "VERIFIED",
+      "statement": "A U.S. Navy pilot, McCain was held as a prisoner of war in North Vietnam from 1967 to 1973.",
+      "evidence": {
+        "source": "Encyclopaedia Britannica — John McCain",
+        "url": "https://www.britannica.com/biography/John-McCain",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "51997e2e942d1a2e05089b05055a200e1799b8148616dc6dc1d3d4d433da3616"
+      }
+    },
+    {
+      "person_id": "O000167",
+      "category": "office",
+      "status": "VERIFIED",
+      "statement": "Barack Obama served as the 44th President of the United States, 2009–2017.",
+      "evidence": {
+        "source": "The White House — presidential history",
+        "url": "https://www.whitehouse.gov/about-the-white-house/presidents/barack-obama/",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "bd67ed74b6a27ef4d44806beef4924e29a239dbef17156b84fe7839a92809011"
+      }
+    },
+    {
+      "person_id": "O000167",
+      "category": "office",
+      "status": "VERIFIED",
+      "statement": "Obama served as U.S. Senator from Illinois from January 2005 to November 2008.",
+      "evidence": {
+        "source": "Biographical Directory of the U.S. Congress",
+        "url": "https://bioguide.congress.gov/search/bio/O000167",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "d9508f04c12960114c0e1834b9f937b3439493cd496f29c2a34253d7169531a3"
+      }
+    },
+    {
+      "person_id": "O000167",
+      "category": "election",
+      "status": "VERIFIED",
+      "statement": "Obama was elected President on November 4, 2008 — the first African American to win the office.",
+      "evidence": {
+        "source": "U.S. National Archives — 2008 Electoral College",
+        "url": "https://www.archives.gov/electoral-college/2008",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "f65947b7435e6985d8f0466b6e15bddf52b7ccb53d2225cbc8930e4ab92d14dd"
+      }
+    },
+    {
+      "person_id": "O000167",
+      "category": "recognition",
+      "status": "VERIFIED",
+      "statement": "Obama was awarded the Nobel Peace Prize in 2009.",
+      "evidence": {
+        "source": "NobelPrize.org — 2009 Peace Prize",
+        "url": "https://www.nobelprize.org/prizes/peace/2009/obama/facts/",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "f61df16208010521315e89ddf7df1908a8266c93d6785515e378cb0404c944c5"
+      }
+    },
+    {
+      "person_id": "S000033",
+      "category": "office",
+      "status": "VERIFIED",
+      "statement": "Bernie Sanders has served Vermont in the U.S. Senate as an Independent since January 2007.",
+      "evidence": {
+        "source": "Biographical Directory of the U.S. Congress",
+        "url": "https://bioguide.congress.gov/search/bio/S000033",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "fe65d60b8b06bf29f4bde484b4ef0a49fc658e55ddca5e430a7be9b8f4259101"
+      }
+    },
+    {
+      "person_id": "S000033",
+      "category": "office",
+      "status": "VERIFIED",
+      "statement": "Sanders previously served as U.S. Representative for Vermont's at-large district, 1991–2007.",
+      "evidence": {
+        "source": "Biographical Directory of the U.S. Congress",
+        "url": "https://bioguide.congress.gov/search/bio/S000033",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "fe65d60b8b06bf29f4bde484b4ef0a49fc658e55ddca5e430a7be9b8f4259101"
+      }
+    },
+    {
+      "person_id": "S000033",
+      "category": "distinction",
+      "status": "VERIFIED",
+      "statement": "Sanders is the longest-serving Independent in congressional history.",
+      "evidence": {
+        "source": "U.S. Senate — Sanders official biography",
+        "url": "https://www.sanders.senate.gov/about-bernie/",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "f62b8990fca019ff5ee008cff96fa93f07ea64c806466a043638346de9c6d6f6"
+      }
+    },
+    {
+      "person_id": "S000033",
+      "category": "campaign",
+      "status": "VERIFIED",
+      "statement": "Sanders sought the Democratic presidential nomination in 2016 and 2020.",
+      "evidence": {
+        "source": "Encyclopaedia Britannica — Bernie Sanders",
+        "url": "https://www.britannica.com/biography/Bernie-Sanders",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "50e98f03adb9a918e328dc3acbd0a6ea5f6a9f9402f54f1177e33cd2f566db0c"
+      }
+    },
+    {
+      "person_id": "S000033",
+      "category": "finance",
+      "status": "UNVERIFIED",
+      "statement": "Campaign-finance aggregates for the 2024 cycle — ingestion pending from OpenFEC API (endpoint: /candidate/S4VT00033/totals).",
+      "evidence": {
+        "source": "OpenFEC API — pending retrieval",
+        "url": "https://api.open.fec.gov/developers/",
+        "retrieved_at": "2026-10-07T17:05:00Z",
+        "sha256": "694efeecf458bdd874733dd2e652a3e324b734346a5a11129dadbf28fb8b18c9"
+      }
+    }
+  ]
+}

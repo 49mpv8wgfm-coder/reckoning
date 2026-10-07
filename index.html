@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RECKONING — a Civic Ledger demonstration</title>
+<style>
+:root{--bg:#0b0e13;--panel:#12161e;--panel2:#171c26;--line:#232a36;--ink:#e8eaf0;--dim:#8b93a3;
+--green:#35c46e;--amber:#d9a441;--slate:#5b7ba6;--red:#c25050;--brand:#c77b3f}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header.top{border-bottom:1px solid var(--line);padding:56px 0 36px}
+.kicker{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.28em;color:var(--brand);text-transform:uppercase}
+h1{font-size:64px;letter-spacing:.02em;margin:10px 0 8px;font-weight:400}
+h1 span{color:var(--brand)}
+.sub{color:var(--dim);font-size:18px;max-width:640px}
+.charter{display:flex;gap:0;border:1px solid var(--line);margin:28px 0 0}
+.charter div{flex:1;padding:14px 18px;border-right:1px solid var(--line);font-size:14px;color:var(--dim)}
+.charter div:last-child{border-right:none}
+.charter b{color:var(--ink);font-weight:400;display:block;font-size:15px}
+h2.sec{font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin:64px 0 20px}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:22px;cursor:pointer;transition:border-color .2s}
+.card:hover{border-color:var(--brand)}
+.card img{width:100%;aspect-ratio:225/275;object-fit:cover;filter:grayscale(35%);background:var(--panel2)}
+.card .nm{font-size:22px;margin-top:14px}
+.card .rl{color:var(--dim);font-size:13px}
+.stat-row{display:flex;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.stat-row div{text-align:center}
+.stat-row .v{font-size:20px;color:var(--ink)}
+.stat-row .k{font-size:10px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.profile{background:var(--panel);border:1px solid var(--line);margin-bottom:40px}
+.p-head{display:flex;gap:28px;padding:28px;border-bottom:1px solid var(--line);align-items:center}
+.p-head img{width:132px;height:162px;object-fit:cover;filter:grayscale(35%);background:var(--panel2)}
+.p-head h3{font-size:34px;font-weight:400;letter-spacing:.02em}
+.p-head .meta{color:var(--dim);font-size:14px;margin-top:4px}
+.p-head .tags{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;letter-spacing:.1em;padding:4px 10px;border:1px solid var(--line);color:var(--dim);text-transform:uppercase}
+.metrics{display:flex;border-bottom:1px solid var(--line)}
+.metrics div{flex:1;padding:16px;text-align:center;border-right:1px solid var(--line)}
+.metrics div:last-child{border-right:none}
+.metrics .v{font-size:24px}
+.metrics .k{font-size:10px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;margin-top:2px}
+.cols{display:grid;grid-template-columns:1fr 1.6fr}
+.tl{padding:24px;border-right:1px solid var(--line)}
+.tl h4,.cl h4{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;margin-bottom:16px}
+.tl ol{list-style:none}
+.tl li{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px;color:var(--dim)}
+.tl li:last-child{border-bottom:none}
+.tl .yr{font-family:ui-monospace,Menlo,monospace;color:var(--brand);min-width:44px}
+.cl{padding:24px}
+.claim{border:1px solid var(--line);margin-bottom:12px;background:var(--panel2)}
+.cl summary{cursor:pointer;padding:14px 16px;list-style:none;display:flex;gap:14px;align-items:flex-start;font-size:15px}
+.cl summary::-webkit-details-marker{display:none}
+.badge{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;padding:3px 8px;white-space:nowrap;margin-top:2px;text-transform:uppercase}
+.b-VERIFIED{color:var(--green);border:1px solid var(--green)}
+.b-UNVERIFIED{color:var(--slate);border:1px solid var(--slate)}
+.b-CONTESTED{color:var(--amber);border:1px solid var(--amber)}
+.b-RETRACTED{color:var(--red);border:1px solid var(--red);text-decoration:line-through}
+.receipt{border-top:1px solid var(--line);padding:16px;font-size:13px;color:var(--dim)}
+.receipt .rrow{display:flex;gap:12px;padding:5px 0}
+.receipt .rk{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;color:var(--dim);min-width:110px;text-transform:uppercase;padding-top:2px}
+.receipt .rv{font-family:ui-monospace,Menlo,monospace;font-size:12px;word-break:break-all}
+.receipt a{color:var(--slate)}
+.cat{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+footer{border-top:1px solid var(--line);padding:40px 0 64px;color:var(--dim);font-size:13px}
+footer p{margin-bottom:10px;max-width:760px}
+@media(max-width:860px){.board{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.tl{border-right:none;border-bottom:1px solid var(--line)}
+.charter{flex-direction:column}.charter div{border-right:none;border-bottom:1px solid var(--line)}h1{font-size:42px}.p-head{flex-direction:column;align-items:flex-start}}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+ <div class="kicker">A demonstration of Civic Ledger</div>
+ <h1>RECKONING<span>.</span></h1>
+ <p class="sub">Every claim has a receipt. A civic-audit instrument that scores claims — not people — models the office, not the person, and never deletes from the ledger.</p>
+ <div class="charter">
+  <div><b>Score claims, not people.</b> Every insight resolves to a verifiable artifact.</div>
+  <div><b>Model the office, not the person.</b> Positions, dates, sources — no pathology.</div>
+  <div><b>The ledger never deletes.</b> Retractions remain visible. Receipts are permanent.</div>
+ </div>
+</div></header>
+
+<main class="wrap">
+ <h2 class="sec">The Board</h2>
+ <div class="board">
+<a class="card" href="#M000303" style="text-decoration:none;color:inherit">
+ <img src="https://unitedstates.github.io/images/congress/225x275/M000303.jpg" alt="JOHN McCAIN">
+ <div class="nm">JOHN McCAIN</div>
+ <div class="rl">U.S. Senator, Arizona · R — Arizona</div>
+ <div class="stat-row mono">
+  <div><div class="v">4</div><div class="k">Claims</div></div>
+  <div><div class="v" style="color:var(--green)">4</div><div class="k">Verified</div></div>
+  <div><div class="v" style="color:var(--amber)">0</div><div class="k">Anomalies</div></div>
+ </div>
+</a>
+<a class="card" href="#O000167" style="text-decoration:none;color:inherit">
+ <img src="https://unitedstates.github.io/images/congress/225x275/O000167.jpg" alt="BARACK OBAMA">
+ <div class="nm">BARACK OBAMA</div>
+ <div class="rl">44th President of the United States · D — Illinois</div>
+ <div class="stat-row mono">
+  <div><div class="v">4</div><div class="k">Claims</div></div>
+  <div><div class="v" style="color:var(--green)">4</div><div class="k">Verified</div></div>
+  <div><div class="v" style="color:var(--amber)">0</div><div class="k">Anomalies</div></div>
+ </div>
+</a>
+<a class="card" href="#S000033" style="text-decoration:none;color:inherit">
+ <img src="https://unitedstates.github.io/images/congress/225x275/S000033.jpg" alt="BERNIE SANDERS">
+ <div class="nm">BERNIE SANDERS</div>
+ <div class="rl">U.S. Senator, Vermont · I — Vermont</div>
+ <div class="stat-row mono">
+  <div><div class="v">5</div><div class="k">Claims</div></div>
+  <div><div class="v" style="color:var(--green)">4</div><div class="k">Verified</div></div>
+  <div><div class="v" style="color:var(--amber)">0</div><div class="k">Anomalies</div></div>
+ </div>
+</a></div>
+ <h2 class="sec">Profiles</h2>
+ 
+<section class="profile" id="M000303">
+ <div class="p-head">
+  <img src="https://unitedstates.github.io/images/congress/225x275/M000303.jpg" alt="JOHN McCAIN">
+  <div>
+   <h3>JOHN McCAIN</h3>
+   <div class="meta">U.S. Senator, Arizona &nbsp;·&nbsp; R — Arizona &nbsp;·&nbsp; <span class="mono">M000303</span></div>
+   <div class="meta">Record closed August 25, 2018</div>
+   <div class="tags"><span class="tag mono">bioguide M000303</span><span class="tag mono">1987–2018</span></div>
+  </div>
+ </div>
+ <div class="metrics mono">
+  <div><div class="v">4</div><div class="k">Claims on record</div></div>
+  <div><div class="v" style="color:var(--green)">4</div><div class="k">Verified</div></div>
+  <div><div class="v">100%</div><div class="k">Record integrity</div></div>
+  <div><div class="v" style="color:var(--amber)">0</div><div class="k">Active anomalies</div></div>
+ </div>
+ <div class="cols">
+  <div class="tl"><h4>Timeline</h4><ol><li><span class="yr mono">1967</span><span>Shot down over Hanoi; begins five and a half years as a POW</span></li><li><span class="yr mono">1973</span><span>Released and returns to the United States</span></li><li><span class="yr mono">1983</span><span>Sworn into the U.S. House of Representatives</span></li><li><span class="yr mono">1987</span><span>Sworn into the U.S. Senate</span></li><li><span class="yr mono">2008</span><span>Republican nominee for President</span></li><li><span class="yr mono">2018</span><span>Dies in office, August 25</span></li></ol></div>
+  <div class="cl"><h4>Claims — expand any row for its receipt</h4><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">office</span><br>John McCain served Arizona in the U.S. Senate from January 1987 until his death on August 25, 2018.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/M000303">Biographical Directory of the U.S. Congress</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">d1a7005655d232ebc48565640e8e0e2a42a7769e560b81d062a315e7ba2c694d</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/M000303">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">office</span><br>McCain previously served as U.S. Representative from Arizona's 1st district, 1983–1987.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/M000303">Biographical Directory of the U.S. Congress</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">d1a7005655d232ebc48565640e8e0e2a42a7769e560b81d062a315e7ba2c694d</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/M000303">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">campaign</span><br>McCain was the Republican nominee for President of the United States in 2008 (FEC candidate P80002801).</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.fec.gov/data/candidate/P80002801/">Federal Election Commission — candidate record</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">44889a7170288e46bbfd3bf4ff1b06bed2b766e2a5172422e2091db10e4edc38</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.fec.gov/data/candidate/P80002801/">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">service</span><br>A U.S. Navy pilot, McCain was held as a prisoner of war in North Vietnam from 1967 to 1973.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.britannica.com/biography/John-McCain">Encyclopaedia Britannica — John McCain</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">51997e2e942d1a2e05089b05055a200e1799b8148616dc6dc1d3d4d433da3616</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.britannica.com/biography/John-McCain">View canonical source ↗</a></span></div></div></details></div>
+ </div>
+</section>
+<section class="profile" id="O000167">
+ <div class="p-head">
+  <img src="https://unitedstates.github.io/images/congress/225x275/O000167.jpg" alt="BARACK OBAMA">
+  <div>
+   <h3>BARACK OBAMA</h3>
+   <div class="meta">44th President of the United States &nbsp;·&nbsp; D — Illinois &nbsp;·&nbsp; <span class="mono">O000167</span></div>
+   <div class="meta">Term ended January 20, 2017</div>
+   <div class="tags"><span class="tag mono">bioguide O000167</span><span class="tag mono">1997–2017</span></div>
+  </div>
+ </div>
+ <div class="metrics mono">
+  <div><div class="v">4</div><div class="k">Claims on record</div></div>
+  <div><div class="v" style="color:var(--green)">4</div><div class="k">Verified</div></div>
+  <div><div class="v">100%</div><div class="k">Record integrity</div></div>
+  <div><div class="v" style="color:var(--amber)">0</div><div class="k">Active anomalies</div></div>
+ </div>
+ <div class="cols">
+  <div class="tl"><h4>Timeline</h4><ol><li><span class="yr mono">2005</span><span>Sworn into the U.S. Senate from Illinois</span></li><li><span class="yr mono">2008</span><span>Elected 44th President of the United States</span></li><li><span class="yr mono">2009</span><span>Inaugurated; awarded the Nobel Peace Prize</span></li><li><span class="yr mono">2012</span><span>Re-elected to a second term</span></li><li><span class="yr mono">2017</span><span>Presidential term ends, January 20</span></li></ol></div>
+  <div class="cl"><h4>Claims — expand any row for its receipt</h4><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">office</span><br>Barack Obama served as the 44th President of the United States, 2009–2017.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.whitehouse.gov/about-the-white-house/presidents/barack-obama/">The White House — presidential history</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">bd67ed74b6a27ef4d44806beef4924e29a239dbef17156b84fe7839a92809011</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.whitehouse.gov/about-the-white-house/presidents/barack-obama/">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">office</span><br>Obama served as U.S. Senator from Illinois from January 2005 to November 2008.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/O000167">Biographical Directory of the U.S. Congress</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">d9508f04c12960114c0e1834b9f937b3439493cd496f29c2a34253d7169531a3</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/O000167">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">election</span><br>Obama was elected President on November 4, 2008 — the first African American to win the office.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.archives.gov/electoral-college/2008">U.S. National Archives — 2008 Electoral College</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">f65947b7435e6985d8f0466b6e15bddf52b7ccb53d2225cbc8930e4ab92d14dd</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.archives.gov/electoral-college/2008">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">recognition</span><br>Obama was awarded the Nobel Peace Prize in 2009.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.nobelprize.org/prizes/peace/2009/obama/facts/">NobelPrize.org — 2009 Peace Prize</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">f61df16208010521315e89ddf7df1908a8266c93d6785515e378cb0404c944c5</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.nobelprize.org/prizes/peace/2009/obama/facts/">View canonical source ↗</a></span></div></div></details></div>
+ </div>
+</section>
+<section class="profile" id="S000033">
+ <div class="p-head">
+  <img src="https://unitedstates.github.io/images/congress/225x275/S000033.jpg" alt="BERNIE SANDERS">
+  <div>
+   <h3>BERNIE SANDERS</h3>
+   <div class="meta">U.S. Senator, Vermont &nbsp;·&nbsp; I — Vermont &nbsp;·&nbsp; <span class="mono">S000033</span></div>
+   <div class="meta">Record live — actively serving</div>
+   <div class="tags"><span class="tag mono">bioguide S000033</span><span class="tag mono">1991–present</span></div>
+  </div>
+ </div>
+ <div class="metrics mono">
+  <div><div class="v">5</div><div class="k">Claims on record</div></div>
+  <div><div class="v" style="color:var(--green)">4</div><div class="k">Verified</div></div>
+  <div><div class="v">80%</div><div class="k">Record integrity</div></div>
+  <div><div class="v" style="color:var(--amber)">0</div><div class="k">Active anomalies</div></div>
+ </div>
+ <div class="cols">
+  <div class="tl"><h4>Timeline</h4><ol><li><span class="yr mono">1991</span><span>Sworn into the U.S. House as an Independent</span></li><li><span class="yr mono">2007</span><span>Sworn into the U.S. Senate</span></li><li><span class="yr mono">2016</span><span>First presidential campaign</span></li><li><span class="yr mono">2020</span><span>Second presidential campaign</span></li><li><span class="yr mono">2025</span><span>Re-elected to a fourth Senate term</span></li></ol></div>
+  <div class="cl"><h4>Claims — expand any row for its receipt</h4><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">office</span><br>Bernie Sanders has served Vermont in the U.S. Senate as an Independent since January 2007.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/S000033">Biographical Directory of the U.S. Congress</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">fe65d60b8b06bf29f4bde484b4ef0a49fc658e55ddca5e430a7be9b8f4259101</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/S000033">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">office</span><br>Sanders previously served as U.S. Representative for Vermont's at-large district, 1991–2007.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/S000033">Biographical Directory of the U.S. Congress</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">fe65d60b8b06bf29f4bde484b4ef0a49fc658e55ddca5e430a7be9b8f4259101</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://bioguide.congress.gov/search/bio/S000033">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">distinction</span><br>Sanders is the longest-serving Independent in congressional history.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.sanders.senate.gov/about-bernie/">U.S. Senate — Sanders official biography</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">f62b8990fca019ff5ee008cff96fa93f07ea64c806466a043638346de9c6d6f6</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.sanders.senate.gov/about-bernie/">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-VERIFIED">VERIFIED</span><span><span class="cat">campaign</span><br>Sanders sought the Democratic presidential nomination in 2016 and 2020.</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://www.britannica.com/biography/Bernie-Sanders">Encyclopaedia Britannica — Bernie Sanders</a></span></div><div class="rrow"><span class="rk">Retrieved</span><span class="rv">2026-10-07T17:05:00Z</span></div><div class="rrow"><span class="rk">SHA-256</span><span class="rv">50e98f03adb9a918e328dc3acbd0a6ea5f6a9f9402f54f1177e33cd2f566db0c</span></div><div class="rrow"><span class="rk">Artifact</span><span class="rv"><a href="https://www.britannica.com/biography/Bernie-Sanders">View canonical source ↗</a></span></div></div></details><details class="claim"><summary><span class="badge b-UNVERIFIED">UNVERIFIED</span><span><span class="cat">finance</span><br>Campaign-finance aggregates for the 2024 cycle — ingestion pending from OpenFEC API (endpoint: /candidate/S4VT00033/totals).</span></summary><div class="receipt"><div class="rrow"><span class="rk">Source</span><span class="rv"><a href="https://api.open.fec.gov/developers/">OpenFEC API — pending retrieval</a></span></div><div class="rrow"><span class="rk">Receipt</span><span class="rv">PENDING — record ingests before public display. The ledger shows its gaps.</span></div></div></details></div>
+ </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+ <p><b style="color:var(--ink)">Method.</b> All records derive from public-domain or authoritative public sources: the Biographical Directory of the United States Congress, the Federal Election Commission, the National Archives, the White House, the Nobel Foundation, and official Senate biographies. Receipt hashes are computed at build time over the canonical source identifier (demo mode; production hashes fetched artifact bytes).</p>
+ <p>An anomaly is a statistical flag, not an accusation. This demonstration contains no allegations; it contains receipts.</p>
+ <p class="mono" style="font-size:11px;letter-spacing:.18em;margin-top:18px">CIVIC LEDGER · RECKONING DEMO v0.1 · BUILT 2026-10-07T17:05:00Z</p>
+</div></footer>
+</body></html>
